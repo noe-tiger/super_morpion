@@ -8,7 +8,6 @@ void move_curs(int ch, const int board_x, const int board_y) {
     static int x = 1;
     static int y = 1;
 
-    // need to be re done !!!
     if (ch == KEY_LEFT && x > 0) {
         x -= 1;
     } else if (ch == KEY_RIGHT && x < 2) {
@@ -68,22 +67,18 @@ int update_board(board_s **board, int *board_x, int *board_y, int ch, WINDOW *wi
 }
 
 int check_single_case(board_s *board) {
-    board = board;
-    // check horizontal
     for (int i = 0; i < 3; i++) {
         if (board->table[i][0] == board->table[i][1] &&
             board->table[i][0] == board->table[i][2] &&
             board->table[i][0] != ' ')
             return (1);
     }
-    // check vertical
     for (int i = 0; i < 3; i++) {
         if (board->table[0][i] == board->table[1][i] && 
             board->table[0][i] == board->table[2][i] && 
             board->table[0][i] != ' ')
             return (1);
     }
-    // check diagonal
     if (board->table[0][0] == board->table[1][1] &&
         board->table[0][0] == board->table[2][2] &&
         board->table[1][1] != ' ')
