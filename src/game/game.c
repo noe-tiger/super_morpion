@@ -73,16 +73,36 @@ int update_board(board_s **board, int *board_x, int *board_y, int ch, WINDOW *wi
 
 int check_single_case(board_s *board) {
     board = board;
-
-    // needs to be done !
-
+    // check horizontal
+    for (int i = 0; i < 3; i++) {
+        if (board->table[i][0] == board->table[i][1] &&
+            board->table[i][0] == board->table[i][2] &&
+            board->table[i][0] != ' ')
+            return (1);
+    }
+    // check vertical
+    for (int i = 0; i < 3; i++) {
+        if (board->table[0][i] == board->table[1][i] && 
+            board->table[0][i] == board->table[2][i] && 
+            board->table[0][i] != ' ')
+            return (1);
+    }
+    // check diagonal
+    if (board->table[0][0] == board->table[1][1] &&
+        board->table[0][0] == board->table[2][2] &&
+        board->table[1][1] != ' ')
+        return (1);
+    if (board->table[2][0] == board->table[1][1] &&
+        board->table[2][0] == board->table[0][2] &&
+        board->table[1][1] != ' ')
+        return (1);
     return (0);
 }
 
 int check_win(board_s **board) {
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
-            if (check_single_case(&board[i][j]) == 1) {
+            if (check_single_case(&board[i][j]) != 0) {
                 return (1);
             }
         }
@@ -106,7 +126,7 @@ int print_game(WINDOW *win, board_s **board) {
         }
         mvprintw(24, 4, "player to play : %c", (player ? 'o' : 'x'));
         move_curs(ch, board_x, board_y);
-        if (check_win(board) == 1) {
+        if (check_win(board) != 0) {
             break ;
         }
     }
