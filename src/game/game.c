@@ -22,16 +22,13 @@ void move_curs(int ch, const int board_x, const int board_y) {
          (3 + board_x * 13) + (x * x_size));
 }
 
-void print_basic_board() { // need to be re done !!!
+void print_basic_board() {
     int boul = 0;
-    for (int i = 0; i < 22; i++) {
-        if (i == 0 || i == 1 || i == 7 ||
-            i == 8 || i == 14 || i == 15 ||
-            i == 21 || i == 22) {
+    for (int i = 0; i < 23; i++) {
+        if (i % 7 == 0 || (i - 1) % 7 == 0) {
             mvprintw(i, 0, "-----------------------------------------");
             boul = 0;
         } else {
-
             if (!boul) {
                 boul = 1;
                 mvprintw(i, 0, "||   |   |   ||   |   |   ||   |   |   ||");
@@ -40,7 +37,6 @@ void print_basic_board() { // need to be re done !!!
                 boul = 0;
                 mvprintw(i, 0, "||--- --- ---||--- --- ---||--- --- ---||");
             }
-            
         }
     }
 }
